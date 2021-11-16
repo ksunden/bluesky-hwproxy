@@ -37,45 +37,53 @@ def main(address):
 @main.command()
 @parse_output
 def list():
+    """List available devices."""
     return zmq_single_request("list")
 
 @main.command()
 @parse_output
 def reload():
+    """Reload the available devices using the source as defined by the server."""
     return zmq_single_request("reload")
 
 @main.command()
 @device_arg
 @parse_output
 def read(device):
+    """Read fields of a device."""
     return zmq_single_request("read", {"device": device})
 
 @main.command()
 @device_arg
 @parse_output
 def describe(device):
+    """Describe metadata about the fields of a device."""
     return zmq_single_request("describe", {"device": device})
 
 @main.group()
 def config():
+    """Provide read/describe for configuration of a device."""
     pass
 
 @config.command()
 @device_arg
 @parse_output
 def read(device):
+    """Read configuration fields of a device."""
     return zmq_single_request("read_configuration", {"device": device})
 
 @config.command()
 @device_arg
 @parse_output
 def describe(device):
+    """Describe metadata about configuration fields of a device."""
     return zmq_single_request("describe_configuration", {"device": device})
 
 @main.command()
 @device_arg
 @parse_output
 def hints(device):
+    """Provide hints for a device which may be useful for visualization and processing."""
     return zmq_single_request("hints", {"device": device})
 
 @main.command()
@@ -83,6 +91,7 @@ def hints(device):
 @click.argument("value")
 @parse_output
 def check(device, value):
+    """Test for valid setpoint without actually moving."""
     value = json.loads(value)
     return zmq_single_request("check_value", {"device": device, "value": value})
 
