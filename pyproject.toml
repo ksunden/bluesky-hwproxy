@@ -3,6 +3,18 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "bluesky_hwproxy"
+name = "bluesky-hwproxy"
 authors = [{name = "Kyle Sunden", email = "contact@ksunden.space"}]
 dynamic = ["version", "description"]
+readme = "README.md"
+requires-python = ">=3.7"
+license = {file="LICENSE"}
+
+dependencies = ["rich", "click", "bluesky-queueserver", "pyzmq"]
+
+[project.scripts]
+hwproxy = "bluesky_hwproxy.hwproxy_cli:main"
+start-hwproxy-server = "bluesky_hwproxy.hwproxy_server:main"
+
+[tool.flit.module]
+name = "bluesky_hwproxy"
