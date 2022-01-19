@@ -88,6 +88,13 @@ def hints(device):
 
 @main.command()
 @device_arg
+@parse_output
+def component_names(device):
+    """Provide component_names for a device which may be useful for visualization and processing."""
+    return zmq_single_request("component_names", {"device": device})
+
+@main.command()
+@device_arg
 @click.argument("value")
 @parse_output
 def check(device, value):
