@@ -1,5 +1,5 @@
 import asyncio
-from typing import TYPE_CHECKING, List, Dict, Optional, Any
+from typing import TYPE_CHECKING, List, Dict, Tuple, Optional, Any
 
 from bluesky_queueserver.manager.profile_ops import devices_from_nspace, load_worker_startup_code  # type: ignore
 import zmq
@@ -48,6 +48,9 @@ class HardwareProxy:
 
     def hints(self, device: str) -> Dict[str, Any]:
         return self.namespace[device].hints
+
+    def component_names(self, device: str) -> Tuple[str, ...]:
+        return self.namespace[device].component_names
 
     async def zmq_server_comm(self):
         """
