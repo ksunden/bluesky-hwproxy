@@ -1,11 +1,10 @@
 import asyncio
-from typing import TYPE_CHECKING, List, Dict, Tuple, Optional, Any
+from typing import List, Dict, Tuple, Optional, Any
 
 from bluesky_queueserver.manager.profile_ops import devices_from_nspace, load_worker_startup_code  # type: ignore
 import zmq
 
-if TYPE_CHECKING:
-    from bluesky.protocols import Readable
+from bluesky.protocols import Checkable, Flyable, Hinted, Movable, Pausable, Readable, Stageable, Stoppable, Subscribable
 
 class HardwareProxy:
     def __init__(self, *, startup_dir: Optional[str]=None, startup_script_path: Optional[str]=None, startup_module_name: Optional[str]=None):
@@ -22,8 +21,29 @@ class HardwareProxy:
     def reload(self):
         self.namespace = devices_from_nspace(load_worker_startup_code(startup_dir=self.startup_dir, startup_script_path=self.startup_script_path, startup_module_name=self.startup_module_name))
 
-    def list(self) -> List[str]:
-        return list(self.namespace.keys())
+    def list(self, protocol: Optional[str]=None) -> List[str]:
+        if protocol is None:
+            return list(self.namespace.keys())
+        elif protocol.lower() == "checkable":
+            return [k for k in self.namespace.keys() if isinstance(self.namespace, Checkable)]
+        elif protocol.lower() == "flyable":
+            return [k for k in self.namespace.keys() if isinstance(self.namespace, Flyable)]
+        elif protocol.lower() == "hinted":
+            return [k for k in self.namespace.keys() if isinstance(self.namespace, Hinted)]
+        elif protocol.lower() == "movable":
+            return [k for k in self.namespace.keys() if isinstance(self.namespace, Movable)]
+        elif protocol.lower() == "pausable":
+            return [k for k in self.namespace.keys() if isinstance(self.namespace, Pausable)]
+        elif protocol.lower() == "readable":
+            return [k for k in self.namespace.keys() if isinstance(self.namespace, Readable)]
+        elif protocol.lower() == "stageable":
+            return [k for k in self.namespace.keys() if isinstance(self.namespace, Stageable)]
+        elif protocol.lower() == "stoppable":
+            return [k for k in self.namespace.keys() if isinstance(self.namespace, Stoppable)]
+        elif protocol.lower() == "subscribable":
+            return [k for k in self.namespace.keys() if isinstance(self.namespace, Subscribable)]
+        else:
+            raise ValueError(f"'{protocol}' not recognized as a valid protocol")
 
     def read(self, device: str) -> Dict[str, Dict[str, Any]]:
         return self.namespace[device].read()
