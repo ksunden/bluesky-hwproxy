@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.7"
 license = {file="LICENSE"}
 
-dependencies = ["rich", "click", "bluesky-queueserver", "pyzmq"]
+dependencies = ["rich", "click", "bluesky-queueserver", "pyzmq", "bluesky"]
 
 [project.scripts]
 hwproxy = "bluesky_hwproxy.hwproxy_cli:main"

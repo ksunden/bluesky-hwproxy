@@ -25,23 +25,23 @@ class HardwareProxy:
         if protocol is None:
             return list(self.namespace.keys())
         elif protocol.lower() == "checkable":
-            return [k for k in self.namespace.keys() if isinstance(self.namespace, Checkable)]
+            return [k for k in self.namespace.keys() if isinstance(self.namespace[k], Checkable)]
         elif protocol.lower() == "flyable":
-            return [k for k in self.namespace.keys() if isinstance(self.namespace, Flyable)]
+            return [k for k in self.namespace.keys() if isinstance(self.namespace[k], Flyable)]
         elif protocol.lower() == "hinted":
-            return [k for k in self.namespace.keys() if isinstance(self.namespace, Hinted)]
+            return [k for k in self.namespace.keys() if isinstance(self.namespace[k], Hinted)]
         elif protocol.lower() == "movable":
-            return [k for k in self.namespace.keys() if isinstance(self.namespace, Movable)]
+            return [k for k in self.namespace.keys() if isinstance(self.namespace[k], Movable)]
         elif protocol.lower() == "pausable":
-            return [k for k in self.namespace.keys() if isinstance(self.namespace, Pausable)]
+            return [k for k in self.namespace.keys() if isinstance(self.namespace[k], Pausable)]
         elif protocol.lower() == "readable":
-            return [k for k in self.namespace.keys() if isinstance(self.namespace, Readable)]
+            return [k for k in self.namespace.keys() if isinstance(self.namespace[k], Readable)]
         elif protocol.lower() == "stageable":
-            return [k for k in self.namespace.keys() if isinstance(self.namespace, Stageable)]
+            return [k for k in self.namespace.keys() if isinstance(self.namespace[k], Stageable)]
         elif protocol.lower() == "stoppable":
-            return [k for k in self.namespace.keys() if isinstance(self.namespace, Stoppable)]
+            return [k for k in self.namespace.keys() if isinstance(self.namespace[k], Stoppable)]
         elif protocol.lower() == "subscribable":
-            return [k for k in self.namespace.keys() if isinstance(self.namespace, Subscribable)]
+            return [k for k in self.namespace.keys() if isinstance(self.namespace[k], Subscribable)]
         else:
             raise ValueError(f"'{protocol}' not recognized as a valid protocol")
 
