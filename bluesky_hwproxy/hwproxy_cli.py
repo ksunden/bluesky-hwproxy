@@ -35,10 +35,11 @@ def main(address):
     pass
 
 @main.command()
+@click.argument("protocol", type=str, required=False)
 @parse_output
-def list():
+def list(protocol=None):
     """List available devices."""
-    return zmq_single_request("list")
+    return zmq_single_request("list", {"protocol": protocol})
 
 @main.command()
 @parse_output
