@@ -4,3 +4,4 @@ __version__ = "0.0.1"
 
 from ._proxy import HardwareProxy
 from .comms import *
+from ._device import Device, NullStatus
