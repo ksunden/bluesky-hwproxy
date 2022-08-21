@@ -4,7 +4,7 @@ from typing import List, Dict, Tuple, Optional, Any
 from bluesky_queueserver.manager.profile_ops import devices_from_nspace, load_worker_startup_code  # type: ignore
 import zmq
 
-from bluesky.protocols import Checkable, Flyable, Hinted, Movable, Pausable, Readable, Stageable, Stoppable, Subscribable
+from bluesky.protocols import Checkable, Flyable, HasHints, Movable, Pausable, Readable, Stageable, Stoppable, Subscribable
 
 class HardwareProxy:
     def __init__(self, *, startup_dir: Optional[str]=None, startup_script_path: Optional[str]=None, startup_module_name: Optional[str]=None):
@@ -29,7 +29,7 @@ class HardwareProxy:
         elif protocol.lower() == "flyable":
             return [k for k in self.namespace.keys() if isinstance(self.namespace[k], Flyable)]
         elif protocol.lower() == "hinted":
-            return [k for k in self.namespace.keys() if isinstance(self.namespace[k], Hinted)]
+            return [k for k in self.namespace.keys() if isinstance(self.namespace[k], HasHints)]
         elif protocol.lower() == "movable":
             return [k for k in self.namespace.keys() if isinstance(self.namespace[k], Movable)]
         elif protocol.lower() == "pausable":
